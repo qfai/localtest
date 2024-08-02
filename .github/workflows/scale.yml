@@ -53,7 +53,6 @@ jobs:
         ./az-edge-site-scale -v
     # Run az-edge-site-scale scale
     - name: Run az-edge-site-scale scale
-      id: scale
       run: |
         ./az-edge-site-scale scale -c ./.azure/scale.csv
         rm ./az-edge-site-scale
@@ -62,7 +61,7 @@ jobs:
         rm ./.azure/scale.csv
     # Commit and push the changes
     - name: Commit and push the changes
-      if: steps.scale.outcome == 'success'
+      if: always()
       run: |
         git config --global user.email "scaler@iac.microsoft.com"
         git config --global user.name "IaC Scaler"
