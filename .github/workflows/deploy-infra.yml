@@ -24,9 +24,16 @@ jobs:
     secrets: inherit
     needs: [dev]
 
+  lalla:
+    uses: ./.github/workflows/site-cd-workflow.yml
+    with:
+      working-directory: dev/lalla
+    secrets: inherit
+    needs: [dev]
+
   qa:
     name: qa
-    needs: [sample,dev]
+    needs: [sample,lalla,dev]
     runs-on: ubuntu-latest
     steps:
      - run: echo "running qa stage"
