@@ -1,10 +1,10 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "hybrid-iac"
-    storage_account_name = "hybridiac"
-    container_name       = "change"
+    resource_group_name  = "backend"
+    storage_account_name = "terrbackend"
+    container_name       = "backend"
     key                  = "{{.GroupName}}.tfstate"
     use_azuread_auth     = true
-    subscription_id      = "bd7961c1-21fb-449a-afff-070bf4b4e500"
+    subscription_id      = "586c20df-c465-4f10-8673-65aa4859e7ca"
   }
 }
