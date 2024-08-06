@@ -1,32 +1,32 @@
 name: Terraform apply infra change
 
 on:
-	push:
-		branches: ["main"]
-	workflow_dispatch:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
-	id-token: write
-	contents: read
+  id-token: write
+  contents: read
 
 jobs:
-	dev:
-		name: dev
-		needs: []
-		runs-on: ubuntu-latest
-		steps:
-		 - run: echo "running dev stage"
+  dev:
+    name: dev
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo "running dev stage"
 
-	sample:
-		uses: ./.github/workflows/site-cd-workflow.yml
-		with:
-			working-directory: dev/sample
-		secrets: inherit
-		needs: [dev]
+  sample:
+    uses: ./.github/workflows/site-cd-workflow.yml
+    with:
+      working-directory: dev/sample
+    secrets: inherit
+    needs: [dev]
 
-	qa:
-		name: qa
-		needs: [sample,dev]
-		runs-on: ubuntu-latest
-		steps:
-		 - run: echo "running qa stage"
+  qa:
+    name: qa
+    needs: [sample,dev]
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo "running qa stage"
