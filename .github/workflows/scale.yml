@@ -48,12 +48,11 @@ jobs:
     # Download az-edge-site-scale
     - name: Download az-edge-site-scale
       run: |
-        wget "https://aka.ms/az-edge-site-scale-linux-amd64?${{ secrets.PRIVATE_PREVIEW_SAS }}" -O az-edge-site-scale
+        wget "https://aka.ms/az-edge-site-scale-linux-amd64" -O az-edge-site-scale
         chmod +x az-edge-site-scale
         ./az-edge-site-scale -v
     # Run az-edge-site-scale scale
     - name: Run az-edge-site-scale scale
-      id: scale
       run: |
         ./az-edge-site-scale scale -c ./.azure/scale.csv
         rm ./az-edge-site-scale
@@ -62,7 +61,7 @@ jobs:
         rm ./.azure/scale.csv
     # Commit and push the changes
     - name: Commit and push the changes
-      if: steps.scale.outcome == 'success'
+      if: always()
       run: |
         git config --global user.email "scaler@iac.microsoft.com"
         git config --global user.name "IaC Scaler"
