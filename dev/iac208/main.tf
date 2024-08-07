@@ -16,7 +16,7 @@ module "base" {
       ipv4Address = "192.168.1.13"
     },
   ]
-  domainServerIP             = "unknown"
+  domainServerIP             = "192.168.1.254"
   subscriptionId             = var.subscriptionId
   domainAdminUser            = var.domainAdminUser
   domainAdminPassword        = var.domainAdminPassword
@@ -31,4 +31,10 @@ module "base" {
   lnet0-endingAddress        = "192.168.1.190"
   lnet0-addressPrefix        = "192.168.1.0/24"
   aksArc0-controlPlaneIp     = "192.168.1.190"
+  dcPort = 6985
+  serverPorts = {
+    "AzSHOST1" = 15985,
+    "AzSHOST2" = 25985
+  }
+  hci0VirtualHostIp = "10.0.0.4"
 }
