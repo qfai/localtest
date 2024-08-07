@@ -10,37 +10,38 @@ permissions:
   contents: read
 
 jobs:
-  dev:
-    name: dev
-    needs: []
-    runs-on: ubuntu-latest
-    steps:
-     - run: echo "running dev stage"
-
-  sample:
-    uses: ./.github/workflows/site-cd-workflow.yml
-    with:
-      working-directory: dev/sample
-    secrets: inherit
-    needs: [dev]
-
-  iac208:
-    uses: ./.github/workflows/site-cd-workflow.yml
-    with:
-      working-directory: dev/iac208
-    secrets: inherit
-    needs: [dev]
-
-  qa:
-    name: qa
-    needs: [sample,iac208,dev]
-    runs-on: ubuntu-latest
-    steps:
-     - run: echo "running qa stage"
-
-  prod:
-    name: prod
-    needs: [qa]
-    runs-on: ubuntu-latest
-    steps:
-     - run: echo "running prod stage"
+    dev:
+        name: dev
+        runs-on: ubuntu-latest
+        steps:
+         - run: echo "running dev stage"
+    iac208:
+        uses: ./.github/workflows/site-cd-workflow.yml
+        with:
+            working-directory: dev/iac208
+        secrets: inherit
+        needs: [dev]
+    sample:
+        uses: ./.github/workflows/site-cd-workflow.yml
+        with:
+            working-directory: dev/sample
+        secrets: inherit
+        needs: [dev]
+    qa:
+        name: qa
+        needs: [dev,iac208,sample]
+        runs-on: ubuntu-latest
+        steps:
+         - run: echo "running qa stage"
+    iac209:
+        uses: ./.github/workflows/site-cd-workflow.yml
+        with:
+            working-directory: qa/iac209
+        secrets: inherit
+        needs: [qa]
+    prod:
+        name: prod
+        needs: [qa,iac209]
+        runs-on: ubuntu-latest
+        steps:
+         - run: echo "running prod stage"
