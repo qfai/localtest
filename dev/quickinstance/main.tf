@@ -1,5 +1,5 @@
 module "base" {
-  source          = "../../modules/base"
+  source          = "../../modules/hciakss"
   location        = "<location>"
   siteId          = basename(abspath(path.module))
   domainFqdn      = "<domainFqdn>"
