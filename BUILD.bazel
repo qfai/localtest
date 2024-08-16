@@ -4,7 +4,10 @@ filegroup(
         [
             "**",
         ],
-        exclude = ["BUILD.bazel"],
+        exclude = [
+            "BUILD.bazel",
+            "owners.txt",
+        ],
     ),
     visibility = ["//visibility:public"],
 )
