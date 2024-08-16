@@ -1,0 +1,39 @@
+name: Terraform apply infra change
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  dev:
+    name: dev
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo "running dev stage"
+
+  quickinstance:
+    uses: ./.github/workflows/site-cd-workflow.yml
+    with:
+      working-directory: dev/quickinstance
+    secrets: inherit
+    needs: [dev]
+
+  iac208:
+    uses: ./.github/workflows/site-cd-workflow.yml
+    with:
+      working-directory: dev/iac208
+    secrets: inherit
+    needs: [dev]
+
+  qa:
+    name: qa
+    needs: [quickinstance,iac208,dev]
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo "running qa stage"
