@@ -1,10 +1,10 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "zilutest"
-    storage_account_name = "qukesa"
-    container_name       = "newcontainer"
+    resource_group_name  = "qukeprodprofile"
+    storage_account_name = "profilebackend"
+    container_name       = "tfbackend"
     key                  = "{{.GroupName}}.tfstate"
     use_azuread_auth     = true
-    subscription_id      = "de3c4d5e-af08-451a-a873-438d86ab6f4b"
+    subscription_id      = "9688b0ae-bd2c-497a-adb7-155619d7ccda"
   }
 }

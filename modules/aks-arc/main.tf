@@ -18,6 +18,9 @@ resource "azapi_resource" "connectedCluster" {
         enableAzureRBAC     = var.enableAzureRBAC
         tenantID            = data.azurerm_client_config.current.tenant_id
       }
+      arcAgentProfile           = {
+        agentAutoUpgrade = "Enabled"
+      }
       agentPublicKeyCertificate = "" //agentPublicKeyCertificate input must be empty for Connected Cluster of Kind: Provisioned Cluster
       azureHybridBenefit        = null
       privateLinkState          = null
